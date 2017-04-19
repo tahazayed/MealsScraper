@@ -5,7 +5,7 @@ __pycache__
 *.csv
 .ipynb_checkpoints
 **/.ipynb_checkpoints/**
-output/
+02-Extract Recipes/output/
 links.txt
 
 

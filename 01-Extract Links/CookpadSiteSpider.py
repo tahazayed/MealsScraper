@@ -9,7 +9,7 @@ class BlogSpider(scrapy.Spider):
     
     
     def parse(self, response):
-        with open("links.txt", 'a') as f:
+        with open("../02-Extract Recipes/links.txt", 'a') as f:
             for title in response.css('li[class=recipe]> *'):
                 f.write('https://cookpad.com' + title.css('a ::attr(href)').extract_first()+"\n")
             f.flush()
