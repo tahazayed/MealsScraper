@@ -3,6 +3,8 @@ __pycache__
 **/__pycache__/**
 *.json
 *.csv
+.ipynb_checkpoints
+**/.ipynb_checkpoints/**
 output/
 links.txt
 
