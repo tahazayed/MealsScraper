@@ -1,3 +1,8 @@
+
+# coding: utf-8
+
+# In[ ]:
+
 import warnings
 import sys
 import requests
@@ -7,13 +12,15 @@ from six import u
 from bs4 import BeautifulSoup
 import json
 import pandas as pd
-import json
 import gc
+
 
 from datetime import datetime
 warnings.filterwarnings("ignore")
 today = datetime.utcnow().isoformat()
 
+
+# In[ ]:
 
 requestSession = requests.Session()
 headers = {
@@ -70,7 +77,6 @@ def spider(url):
         for x in i.find_all('a'):
             recipi_tags.append(x.text.strip())
         break 
-    
     likes=0
     try:
         likes = (0, int(recipi_likes.strip()))[len(recipi_likes.strip())>0]
@@ -100,6 +106,10 @@ def saveToFile(data,fileName):
         json.dump(data, fo, ensure_ascii=False)
         fo.flush()
 
+    
+
+
+# In[ ]:
 
 counter = 1
 data=[]
@@ -123,4 +133,17 @@ with open("links.txt") as f:
     print(counter)
     saveToFile(data, 'output/test{}.json'.format(counter))
     del data [:]
-    print(gc.collect())  
+    print(gc.collect())            
+        
+          
+
+
+# In[ ]:
+
+
+
+
+# In[ ]:
+
+
+

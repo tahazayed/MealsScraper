@@ -1,4 +1,6 @@
-python Cookpad-c.py
+jupyter nbconvert --to script Cookpad.ipynb
+
+python Cookpad.py
 
 cd output
 
