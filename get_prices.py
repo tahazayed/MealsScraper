@@ -71,10 +71,10 @@ def saveToFile(df,fileName):
             ingrd["n"]=str.strip(df.iloc[i,1])
             ingrd["gvrnrt"]=str.strip(df.iloc[i,2])
             ingrd["u"]=str.strip(df.iloc[i,3]).replace(" ","")
-            if('جنيه' in ingrd["u"]):
+            if(u'جنيه' in ingrd["u"]):
                 ingrd["min_price"]=float(df.iloc[i,5]) * 100
                 ingrd["max_price"]=float(df.iloc[i,7]) * 100
-                ingrd["u"] = ingrd["u"].replace('جنيه','قرش')
+                ingrd["u"] = ingrd["u"].replace(u'جنيه',u'قرش')
             else:
                 ingrd["min_price"]=float(df.iloc[i,5])
                 ingrd["max_price"]=float(df.iloc[i,7])
