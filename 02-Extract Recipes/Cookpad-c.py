@@ -96,7 +96,7 @@ def spider(url):
     return recipe
 
 def saveToFile(data,fileName):
-    with open(fileName, 'a', encoding="utf-8") as fo:
+    with open(fileName, 'w', encoding="utf-8") as fo:
         json.dump(data, fo, ensure_ascii=False)
         fo.flush()
 
@@ -120,5 +120,7 @@ with open("links.txt") as f:
             print ("Unexpected error:", sys.exc_info())
             counter = counter - 1
             continue
-        
-          
+    print(counter)
+    saveToFile(data, 'output/test{}.json'.format(counter))
+    del data [:]
+    print(gc.collect())  
