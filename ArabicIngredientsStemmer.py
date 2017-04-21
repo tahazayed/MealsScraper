@@ -4,6 +4,7 @@ import numpy as np
 import re
 from difflib import SequenceMatcher
 
+
 class ArabicIngredientsStemmer:
 
 
@@ -15,7 +16,7 @@ class ArabicIngredientsStemmer:
     
     def __init__(self, prices):
         self.ItemCorpus = []
-        self.ItemCorpusDict = {}
+        self.ItemCorpusDict = []
         self.extractNamesPrices(prices)
  
     #http://languagelog.ldc.upenn.edu/myl/ldc/morph/buckwalter.html
@@ -50,13 +51,11 @@ class ArabicIngredientsStemmer:
 
         for item in prices:
             itemTxt = self.cleanArabicString(item)
-            itemName = item.replace(' ','')
-            if itemName not in self.ItemCorpusDict:
-                self.ItemCorpusDict[itemName]=[]
+
             for comp in itemTxt.split():
                 if self.pattern.match(comp) != None and len(comp)>2:
                     self.ItemCorpus.append(comp)
-                    self.ItemCorpusDict[itemName].append(comp)
+                    self.ItemCorpusDict.append({"word":comp,"id":item})
             del itemTxt  
         self.ItemCorpus = (set(self.ItemCorpus))
 
@@ -77,7 +76,13 @@ class ArabicIngredientsStemmer:
         ingrdsCorpus = (set(ingrdsCorpus))
         return ingrdsCorpus
     
-
+    def search(self, word):
+        result = []
+        for p in self.ItemCorpusDict:
+            if p['word'] == word:
+                result.append(p["id"])
+        return result
+    
     def machIngredItmPrice(self, ingrdsCorpus):
         """ mach Ingredients with Item price """
 
@@ -97,8 +102,11 @@ class ArabicIngredientsStemmer:
                 if SequenceMatcher(None, word, item).ratio()>0.9:
                     found.append(item)
                 break
-          
-        results = {}
-        results["names"] = names
-        results["found"] = found
-        return results
+        Items=[]
+        for word in set(names+found):
+            f=self.search(word)
+            if(len(f)>0):
+                Items= Items + self.search(word)
+       
+       
+        return list(set(Items))
