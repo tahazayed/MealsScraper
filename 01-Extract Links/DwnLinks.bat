@@ -1,5 +1,7 @@
-rem scrapy runspider CookpadSiteSpider.py
+del /f "..\02-Extract Recipes\links.txt"
 
-cd ..\02-Extract Recipes
+scrapy runspider CookpadSiteSpider.py
+
+cd "..\02-Extract Recipes"
 
 DwnImpRecipes.bat

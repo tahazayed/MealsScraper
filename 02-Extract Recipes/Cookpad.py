@@ -123,7 +123,7 @@ with open("links.txt") as f:
             print(counter)
             if(counter % 1000 == 0):
                 print(counter)
-                saveToFile(data, 'output/test{}.json'.format(counter))
+                saveToFile(data, 'output/test{}{}.json'.format(counter,datetime.datetime.now().strftime("%Y%m%d-%H%M%S")))
                 del data [:]
                 print(gc.collect())
         except:
