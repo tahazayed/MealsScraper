@@ -49,6 +49,7 @@ def spider(url):
         recipi_image = ''
     
     recipi_likes = soup.find('span', attrs={'class':'field-group__hide subtle'}).text.strip()
+    desc = soup.find(attrs={'name':'description'})['content']
 
     
     #recipi_image = recipi_image_div.find('a',{'data-target':'#modal'})["href"]
@@ -94,6 +95,7 @@ def spider(url):
     recipe["likes"] = likes
     recipe["pub"] = today
     recipe["etag"] = r.headers['ETag']
+    recipe["desc"] = desc
     
     del r, page, soup, recipi_name, author_name, author_url, recipi_id, likes
     del recipi_image, recipi_likes, recipi_ingredients, index
@@ -123,7 +125,7 @@ with open("links.txt") as f:
             print(counter)
             if(counter % 1000 == 0):
                 print(counter)
-                saveToFile(data, 'output/test{}{}.json'.format(counter,datetime.datetime.now().strftime("%Y%m%d-%H%M%S")))
+                saveToFile(data, 'output/test{}{}.json'.format(counter, datetime.now().strftime("%Y%m%d-%H%M%S")))
                 del data [:]
                 print(gc.collect())
         except:
@@ -131,7 +133,7 @@ with open("links.txt") as f:
             counter = counter - 1
             continue
     print(counter)
-    saveToFile(data, 'output/test{}.json'.format(counter))
+    saveToFile(data, 'output/test{}{}.json'.format(counter, datetime.now().strftime("%Y%m%d-%H%M%S")))
     del data [:]
     print(gc.collect())            
         
