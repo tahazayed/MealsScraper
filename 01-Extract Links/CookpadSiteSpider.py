@@ -5,6 +5,7 @@ pageid = 1
 old_links = []
 is_found_old_link = False
 is_oldlinks_file_Exists = True
+is_more = True
 
 class BlogSpider(scrapy.Spider):
     name = 'cookpadspider'
@@ -13,7 +14,7 @@ class BlogSpider(scrapy.Spider):
     
     
     def parse(self, response):
-        global old_links, pageid, is_found_old_link, is_oldlinks_file_Exists
+        global old_links, pageid, is_found_old_link, is_oldlinks_file_Exists, is_more
         if len(old_links)==0 and is_oldlinks_file_Exists:
             try:
                 with open("../02-Extract Recipes/oldlinks.txt", 'r') as oldf:
@@ -25,7 +26,9 @@ class BlogSpider(scrapy.Spider):
                                 
             
         with open("../02-Extract Recipes/links.txt", 'a') as f:
+            is_more = False
             for title in response.css('li[class=recipe]> *'):
+                is_more = True
                 new_link = 'https://cookpad.com' + title.css('a ::attr(href)').extract_first()+'\n'
                 if new_link not in old_links:
                     f.write(new_link)
@@ -36,7 +39,7 @@ class BlogSpider(scrapy.Spider):
             f.close()
             
            
-        if not is_found_old_link:
+        if not is_found_old_link and is_more:
             pageid = pageid+1    
             next_page = 'https://cookpad.com/eg/وصفات?page='+str(pageid)
             if next_page:
