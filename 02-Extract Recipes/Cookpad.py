@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 import warnings
 import sys
@@ -20,7 +20,7 @@ warnings.filterwarnings("ignore")
 today = datetime.utcnow().isoformat()
 
 
-# In[ ]:
+# In[2]:
 
 requestSession = requests.Session()
 headers = {
@@ -111,7 +111,7 @@ def saveToFile(data,fileName):
     
 
 
-# In[ ]:
+# In[3]:
 
 counter = 1
 data=[]
